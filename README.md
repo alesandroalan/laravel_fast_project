@@ -15,10 +15,10 @@
 *  cd laravel_fast_project
 *  composer install
 *  configure a database no arquivo <code>.env</code>
-*  pa migrate:install
-*  pa migrate
-*  pa db:seed RoleAndPermissionSeeder
-*  pa serve
+*  php artisan migrate:install
+*  php artisan migrate
+*  php artisan db:seed RoleAndPermissionSeeder
+*  php artisan serve
 *  Acesse http://localhost:port
 
 ### Como criar novos CRUDs ###
