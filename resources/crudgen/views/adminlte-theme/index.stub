@@ -1,0 +1,83 @@
+@extends('DummyExtends')
+
+@section('title', DummyPageTitle)
+
+@section('content_header')
+    <h1 class="m-0 text-dark">DummyPageSectionTitle</h1>
+@stop
+@section('DummySection')
+<div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-start mb-3 mt-3 ml-3">
+                    <a href="{{ route('DummyVariable.create') }}" class="btn btn-info">
+                        {{__('adminlte::main.Create')}}
+                        </a>
+                    </div>
+                    <div class="d-flex justify-content-end mb-3 mt-3">
+                        {!! Form::open(['method' => 'GET' ,'route' => ['DummyVariable.index']]) !!}
+                        {{ Form::text('filter', $_GET['filter'] ?? '', array('class' => 'form-control','placeholder' => __('adminlte::main.filter'), "autofocus" => "true")) }}
+                        {!! Form::close() !!}
+                    </div>
+                    <div class="table-responsive">
+                    <table class="table table-bordered table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                DummyHeaderTable
+                                <th>{{__('adminlte::main.Edit')}}</th>
+                                <th>{{__('adminlte::main.Delete')}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(DummyCreateVariable$ as DummyCreateVariableSing$)
+
+                                <tr>
+                                    <td>{{ DummyCreateVariableSing$->id }}</td>
+                DummyIndexTable
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <a href="{{ route('DummyVariable.edit', [DummyCreateVariableSing$->id]) }}" class="btn btn-primary btn-xs">{{__('adminlte::main.Edit')}}</a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            {!! Form::open(['method' => 'DELETE', 'name' => 'delete' ,'route' => ['DummyVariable.destroy', DummyCreateVariableSing$->id]]) !!}
+                                                {!! Form::submit(__('adminlte::main.Delete'), ['class' => 'btn btn-danger btn-xs']) !!}
+                                            {!! Form::close() !!}
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <small>{{__('adminlte::main.Showing')}} {{$DummyVariable->firstItem() ?? "0"}} {{__('adminlte::main.to')}} {{$DummyVariable->lastItem() ?? "0"}} {{__('adminlte::main.of')}} {{$DummyVariable->total() ?? "0"}} {{__('adminlte::main.items')}}</small>
+                    </div>
+                    {{$DummyVariable->links()}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+@stop
+@section('js')
+    <script>
+        $(document).ready(function () {
+            $('form[name="delete"]').on('submit',function(e) {
+
+                var r = confirm("{{__('adminlte::main.Are you sure you want to remove this record?')}}");
+                if (r == true) {
+                    return true;
+                } else {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                }
+            });
+
+        });
+
+    </script>
+@endsection
